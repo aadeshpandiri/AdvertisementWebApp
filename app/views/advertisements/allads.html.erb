@@ -1,0 +1,60 @@
+<% if user_signed_in? %>
+  <h1 class="text-center">All Advertisements</h1><hr>
+
+    <% @advertisements.each do |advertisement| %>
+    
+      <div class="card"> 
+        <div class="card-body">
+        
+          <p><span class="fw-bold"> Title : </span> <%= advertisement.title %></p>
+          <p><span class="fw-bold"> Description : </span> <%= advertisement.desc %></p>
+          <p><span class="fw-bold"> Contact Details : </span> <%= advertisement.phone %></p>
+          <p><span class="fw-bold"> User Id : </span> <%= advertisement.user_id %> </p>
+          <%= link_to "..ReadMore",advertisement %>
+          <!-- <p><%= link_to 'View More Details', advertisement, class:"btn btn-info" %> -->
+          <br/><br/>
+          <% if advertisement.user == current_user %> 
+          <%= link_to 'Edit', edit_advertisement_path(advertisement), class:"btn btn-secondary" %>
+          <%= link_to 'Delete', advertisement, method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-danger" %></p>
+          <% else %>
+          <button class="btn btn-info">You are not allowed to perform any operation on others Advertisements </button>
+          <% end %>
+        
+        </div>
+      </div>
+      <br/>
+    
+    <% end %>
+    
+
+
+<%= link_to 'Create New Advertisement', new_advertisement_path, class:"btn btn-success" %>
+<% else %>
+
+<p><%= image_tag("pics/welcome.jfif",width:'70%',height:'100%') %>
+<!-- <p><img src="https://elements-cover-images-0.imgix.net/e1d975d3-d95b-4c35-b011-d79bfe892dc6?auto=compress&crop=edges&fit=crop&fm=jpeg&h=630&w=1200&s=5c49cd2ebbe2dab40bfa015dceb538b7",
+    alt="Welcome"
+style="width:70%;height:100%;margin-left:0px;"> -->
+<p class="ttx">
+<div class="card">
+  <div class="card-header">
+     <h3>Welcome Peers </h3>
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">Sign In with your credentials to view Advertisements !!!!</h5><hr>
+    <p class="card-text">
+    Don't have an account ? <br/><br/>
+<%= link_to "SignUp",new_user_registration_path,class:"btn btn-warning"%>
+<br/><br/>
+Already have an account ? <br/><br/>
+<%= link_to "LogIn",new_user_session_path,class:"btn btn-success"%>
+    </p>
+  </div>
+</div>
+
+</p>
+</p>
+
+
+
+<% end %>
